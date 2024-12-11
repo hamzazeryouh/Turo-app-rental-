@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    internal class Review
+    public class Review
     {
+        public int Id { get; set; }  // Unique identifier for the review
+        public int AgencyId { get; set; }  // The agency being reviewed
+        public int CarId { get; set; }  // Optional: The car being reviewed (if applicable)
+        public int UserId { get; set; }  // The user leaving the review
+        public string Comments { get; set; }  // The text of the review
+        public double Rating { get; set; }  // Rating out of 5 (or other scale)
+
+        // Navigation properties
+        public Agency Agency { get; set; }  // Navigation back to the agency entity
+        public Car Car { get; set; }  // Navigation back to the car entity (optional)
+        public User User { get; set; }  // Navigation back to the user leaving the review
     }
 }
