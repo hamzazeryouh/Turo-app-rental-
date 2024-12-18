@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="C:\Users\TEST\source\repos\Turo\Turo.Domain\Entities\.editorconfig" />
-  </ItemGroup>
-
 </Project>
