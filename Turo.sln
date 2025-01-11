@@ -7,7 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Turo", "Turo\Turo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Turo.Domain", "Turo.Domain\Turo.Domain.csproj", "{957451EC-D233-448B-B80C-69636C499FBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turo.Application", "Turo.Application\Turo.Application.csproj", "{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Turo.Application", "Turo.Application\Turo.Application.csproj", "{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{71A52779-BD89-4131-B570-6FAEE6AD1118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turo.Infrastructure", "Turo.Infrastructure\Turo.Infrastructure.csproj", "{7707C6D1-EC61-48EA-8714-C85A42B47808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turo.UnitTests", "Turo.UnitTests\Turo.UnitTests.csproj", "{D5BA612E-34EB-4635-A253-B702FA27A8A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turo.IntegrationTests", "Turo.IntegrationTests\Turo.IntegrationTests.csproj", "{D867E811-33E8-4806-8F27-C5C84E361671}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6BC817E6-6F48-4E4F-923D-33ED18EE7221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +37,29 @@ Global
 		{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7707C6D1-EC61-48EA-8714-C85A42B47808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7707C6D1-EC61-48EA-8714-C85A42B47808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7707C6D1-EC61-48EA-8714-C85A42B47808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7707C6D1-EC61-48EA-8714-C85A42B47808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BA612E-34EB-4635-A253-B702FA27A8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BA612E-34EB-4635-A253-B702FA27A8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BA612E-34EB-4635-A253-B702FA27A8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BA612E-34EB-4635-A253-B702FA27A8A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D867E811-33E8-4806-8F27-C5C84E361671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D867E811-33E8-4806-8F27-C5C84E361671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D867E811-33E8-4806-8F27-C5C84E361671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D867E811-33E8-4806-8F27-C5C84E361671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDED3311-2E71-4991-93B8-4F181B6B6847} = {6BC817E6-6F48-4E4F-923D-33ED18EE7221}
+		{957451EC-D233-448B-B80C-69636C499FBD} = {6BC817E6-6F48-4E4F-923D-33ED18EE7221}
+		{F02CC3DD-A7ED-47D2-9990-27A1510BDB3D} = {6BC817E6-6F48-4E4F-923D-33ED18EE7221}
+		{7707C6D1-EC61-48EA-8714-C85A42B47808} = {6BC817E6-6F48-4E4F-923D-33ED18EE7221}
+		{D5BA612E-34EB-4635-A253-B702FA27A8A2} = {71A52779-BD89-4131-B570-6FAEE6AD1118}
+		{D867E811-33E8-4806-8F27-C5C84E361671} = {71A52779-BD89-4131-B570-6FAEE6AD1118}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4DC345F-1136-4EFA-970B-38AB3BE68F9D}

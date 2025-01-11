@@ -12,11 +12,11 @@ namespace Turo.Domain.Entities
 
         // Reference to the car being booked
         public int CarId { get; set; }
-        public Car Car { get; set; }  // Navigation property to the car
+        public Car? Car { get; set; }  // Navigation property to the car
 
         // Reference to the user who made the booking (renter)
         public int RenterId { get; set; }
-        public IndividualUser Renter { get; set; }  // Navigation property to the renter
+        public IndividualUser? Renter { get; set; }  // Navigation property to the renter
 
         // Booking details
         public DateTime StartDate { get; set; }  // Date when the booking starts
@@ -25,8 +25,8 @@ namespace Turo.Domain.Entities
 
         // Payment status
         public bool IsPaid { get; set; }  // Whether the booking has been paid for
-        public string PaymentMethod { get; set; }  // Payment method used (e.g., credit card, PayPal, etc.)
-        public string PaymentDetails { get; set; }  // Additional payment details (this could be encrypted)
+        public string? PaymentMethod { get; set; }  // Payment method used (e.g., credit card, PayPal, etc.)
+        public string? PaymentDetails { get; set; }  // Additional payment details (this could be encrypted)
 
         // Booking status
         public BookingStatus Status { get; set; }  // Status of the booking (e.g., Pending, Confirmed, Cancelled)
