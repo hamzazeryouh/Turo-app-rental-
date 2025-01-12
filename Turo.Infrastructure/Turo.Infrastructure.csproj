@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Turo.Application\Turo.Application.csproj" />
+    <ProjectReference Include="..\Turo.Domain\Turo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

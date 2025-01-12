@@ -1,5 +1,9 @@
 using System.Text.Json.Serialization;
 using Turo.Application.Maping;
+using Turo.Domain.Entities;
+using Turo.Infrastructure.Repository.Base;
+using Turo.Infrastructure.Repository.Cars;
+using Turo.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -8,6 +12,9 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IRepository<Car>, Repository<Car>>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 var sampleTodos = new Todo[] {
