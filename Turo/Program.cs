@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Turo.Application.Maping;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -6,9 +7,9 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
-
 var sampleTodos = new Todo[] {
     new(1, "Walk the dog"),
     new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
