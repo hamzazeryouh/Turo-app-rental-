@@ -8,7 +8,7 @@ using Turo.Application.Helpers;
 
 namespace Turo.Infrastructure.Repository.Base
 {
-    public interface IRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
