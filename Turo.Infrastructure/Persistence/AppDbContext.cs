@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Turo.Domain.Entities;
+using Turo.Infrastructure.UnitOfWork;
 
 namespace Turo.Infrastructure.Persistence
 {
