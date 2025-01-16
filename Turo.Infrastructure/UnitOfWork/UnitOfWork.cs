@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Turo.Infrastructure.Persistence;
 using Turo.Infrastructure.Repository.Cars;
 
 namespace Turo.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly AppDbContext  _context;
         public ICarRepository Cars { get; }
 
-        public UnitOfWork(DbContext context, ICarRepository carRepository)
+        public UnitOfWork(AppDbContext  context, ICarRepository carRepository)
         {
             _context = context;
             Cars = carRepository;
