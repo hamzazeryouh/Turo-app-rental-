@@ -5,6 +5,6 @@ namespace Turo.Infrastructure.Repository
     using Turo.Infrastructure.Repository.Base;
     public interface IAgencyRepository : IGenericRepository<Agency>
     {
-        Task<Agency> GetAgencyWithLocationsAsync(int agencyId);
+        Task<Agency> GetAgencyWithLocationsAsync(string agencyId);
     }
 }

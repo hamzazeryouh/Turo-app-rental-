@@ -14,11 +14,11 @@ namespace Turo.Infrastructure.Repository
     {
         public AgencyRepository(AppDbContext context) : base(context) { }
 
-        public async Task<Agency> GetAgencyWithLocationsAsync(int agencyId)
+        public async Task<Agency> GetAgencyWithLocationsAsync(string agencyId)
         {
             return await _context.Agencies
                 .Include(a => a.Locations)
-                .FirstOrDefaultAsync(a => a.Id == agencyId);
+                .FirstOrDefaultAsync(a => a.Id.Equals( agencyId));
         }
     }
 }
