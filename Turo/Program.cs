@@ -16,7 +16,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddScoped<IRepository<Car>, Repository<Car>>();
+builder.Services.AddScoped<IGenericRepository<Car>, GenericRepository<Car>>();
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
