@@ -15,3 +15,21 @@ For licensing inquiries or commercial use, **contact me at:** [Your Contact Emai
 ---
 ### 📌 Legal Disclaimer:
 This software is provided **"as-is"**, without any warranty or guarantee of any kind. The owner is **not responsible** for any damages, data loss, or legal consequences resulting from using this code.
+
+
+# Custom License
+
+## 🛑 Restrictions:
+1. This code may **only** be used for **educational and personal projects**.
+2. You **CANNOT** sell, sublicense, or use this code for **any commercial product or service** without explicit permission.
+3. Modification is allowed, but any modified version must include this license.
+
+## ✅ Allowed Uses:
+- Personal learning & research.
+- Non-commercial academic projects.
+- Open-source contributions with attribution.
+
+## ⚠ Legal Note:
+The author provides this software **"as-is"** without any warranty. Use at your own risk.
+
+To purchase a **commercial license**, contact: [hamza zeryouh] email: zeryouhbusiness@gmail.com.
