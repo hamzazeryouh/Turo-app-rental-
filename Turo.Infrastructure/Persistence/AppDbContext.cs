@@ -12,7 +12,7 @@ namespace Turo.Infrastructure.Persistence
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Agency> Agencys { get; set; } 
+        public DbSet<Agency> Agencies { get; set; } 
         public DbSet<AgencyLocation> AgencyLocations { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
