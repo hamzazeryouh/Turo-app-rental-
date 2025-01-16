@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Turo.Application.Maping;
 using Turo.Domain.Entities;
+using Turo.Infrastructure.Persistence;
 using Turo.Infrastructure.Repository.Base;
 using Turo.Infrastructure.Repository.Cars;
 using Turo.Infrastructure.UnitOfWork;
@@ -11,6 +13,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IRepository<Car>, Repository<Car>>();
 builder.Services.AddScoped<ICarRepository, CarRepository>();
