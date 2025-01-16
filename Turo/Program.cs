@@ -7,7 +7,7 @@ using Turo.Infrastructure.Repository;
 using Turo.Infrastructure.Repository.Base;
 using Turo.Infrastructure.Repository.Cars;
 using Turo.Infrastructure.UnitOfWork;
-
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateSlimBuilder(args);
 
 
@@ -21,7 +21,23 @@ builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    );
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+        builder =>
+        {
+            builder.WithOrigins("*")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            ;
+        });
+});
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.Run();
