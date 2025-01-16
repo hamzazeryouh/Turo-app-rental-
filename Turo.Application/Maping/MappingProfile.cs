@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Turo.Application.Dtos.Cars;
-using Turo.Domain.Entities;
+﻿
 
 namespace Turo.Application.Maping
 {
+    using AutoMapper;
+    using Turo.Application.Dtos.Cars;
+    using Turo.Domain.Entities;
     public class MappingProfile : Profile
     {
         public MappingProfile()
