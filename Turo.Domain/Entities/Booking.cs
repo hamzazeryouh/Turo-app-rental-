@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Booking
+    public class Booking :BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the booking
 
         // Reference to the car being booked
         public int CarId { get; set; }

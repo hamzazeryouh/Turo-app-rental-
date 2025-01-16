@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Car
+    public class Car : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the car
         public string? Make { get; set; }  // Car brand (e.g., Tesla, BMW)
         public string? Model { get; set; }  // Car model (e.g., Model S, X5)
         public string? VIN { get; set; }  // Vehicle Identification Number (unique identifier)

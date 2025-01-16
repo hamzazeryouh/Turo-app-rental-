@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class User
+    public class User : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the user
         public string? FirstName { get; set; }  // User's first name
         public string? LastName { get; set; }  // User's last name
         public string? Email { get; set; }  // User's email address
