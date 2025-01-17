@@ -18,8 +18,8 @@ namespace Turo.Application.Helpers
         public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
         public DateTime Timestamp { get; set; }
-        public Dictionary<string, object> Metadata { get; set; } = new();
 
+        // Constructor for success response with data
         public Response(T data, int statusCode = 200, string message = "Request successful.")
         {
             Success = true;
@@ -30,6 +30,7 @@ namespace Turo.Application.Helpers
             Timestamp = DateTime.UtcNow;
         }
 
+        // Constructor for error response with a list of errors
         public Response(List<string> errors, int statusCode = 400, string message = "Request failed.")
         {
             Success = false;
@@ -40,6 +41,7 @@ namespace Turo.Application.Helpers
             Timestamp = DateTime.UtcNow;
         }
 
+        // Constructor for error response with a single error message
         public Response(string error, int statusCode = 400, string message = "Request failed.")
         {
             Success = false;
@@ -49,20 +51,7 @@ namespace Turo.Application.Helpers
             Errors = new List<string> { error };
             Timestamp = DateTime.UtcNow;
         }
-
-        public void AddMetadata(string key, object value)
-        {
-            Metadata[key] = value;
-        }
-
-        public void AddError(string error)
-        {
-            if (Errors == null)
-            {
-                Errors = new List<string>();
-            }
-            Errors.Add(error);
-        }
     }
+
 
 }
