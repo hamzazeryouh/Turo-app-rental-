@@ -6,14 +6,16 @@
     {
         public static readonly Dictionary<string, Dictionary<string, string>> Translations =
             new Dictionary<string, Dictionary<string, string>>
-            {
+        {
             {
                 "en", new Dictionary<string, string>
                 {
                     { "Success", "Request successful." },
                     { "Error", "Request failed." },
-                    { "UserNotFound", "User not found." },
-                    { "Welcome", "Welcome to our API!" }
+                    { "NotFound", "Entity not found." },
+                    { "Created", "Entity successfully created." },
+                    { "Updated", "Entity successfully updated." },
+                    { "Deleted", "Entity successfully deleted." }
                 }
             },
             {
@@ -21,11 +23,13 @@
                 {
                     { "Success", "Requête réussie." },
                     { "Error", "Échec de la requête." },
-                    { "UserNotFound", "Utilisateur non trouvé." },
-                    { "Welcome", "Bienvenue sur notre API!" }
+                    { "NotFound", "Entité non trouvée." },
+                    { "Created", "Entité créée avec succès." },
+                    { "Updated", "Entité mise à jour avec succès." },
+                    { "Deleted", "Entité supprimée avec succès." }
                 }
             }
-            };
+        };
 
         public static string Translate(string key, string language)
         {
