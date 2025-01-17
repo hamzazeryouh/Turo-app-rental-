@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Review
+    public class Review : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the review
         public int AgencyId { get; set; }  // The agency being reviewed
         public int CarId { get; set; }  // Optional: The car being reviewed (if applicable)
         public int UserId { get; set; }  // The user leaving the review

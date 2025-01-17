@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class IndividualUser
+
+    public class IndividualUser : BaseEntity<string>
     {
         public string? ProfilePicture { get; set; }  // Optional profile picture for the renter
         public ICollection<Booking>? Bookings { get; set; }  // List of bookings made by the individual user

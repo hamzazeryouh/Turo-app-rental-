@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Staff
+    public class Staff : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the staff member
+
+
         public int AgencyId { get; set; }  // The agency where the staff works
         public string? FirstName { get; set; }  // First name of the staff member
         public string? LastName { get; set; }  // Last name of the staff member

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Booking :BaseEntity<string>
+    public class Booking : BaseEntity<string>
     {
 
         // Reference to the car being booked
