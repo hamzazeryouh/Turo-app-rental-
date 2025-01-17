@@ -28,6 +28,7 @@ builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -47,7 +48,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
+app.UseAuthorization();
 app.Run();
 
 
