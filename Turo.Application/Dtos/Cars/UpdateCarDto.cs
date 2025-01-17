@@ -7,9 +7,9 @@ using Turo.Application.Interfaces;
 
 namespace Turo.Application.Dtos.Cars
 {
-    public class CarDto : IBaseViewModel
+    public class UpdateCarDTo: IBaseUpdateDTO
     {
-        public string Id { get; set; }  // Unique identifier for the car
+        public string Id { get; set; }
         public string? Make { get; set; }  // Car brand (e.g., Tesla, BMW)
         public string? Model { get; set; }  // Car model (e.g., Model S, X5)
         public string? VIN { get; set; }  // Vehicle Identification Number

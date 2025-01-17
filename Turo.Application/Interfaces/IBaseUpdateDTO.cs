@@ -7,7 +7,7 @@ using Turo.Domain.Interfaces;
 
 namespace Turo.Application.Interfaces
 {
-    public interface IBaseUpdateDTO : IEntity<int>
+    public interface IBaseUpdateDTO : IEntity<string>
     {
     }
 }
