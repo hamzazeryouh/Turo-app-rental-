@@ -9,9 +9,8 @@ using Turo.Domain.Entities;
 
 namespace Turo.Application.Commands.Cars
 {
-    public class UpdateCarCommand : IRequest<int>
+    public class UpdateCarCommand : IRequest<bool>
     {
-        public string? Id { get; set; }
         public UpdateCarDTo? UpdateCar { get; set; }
     }
 }

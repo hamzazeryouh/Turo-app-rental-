@@ -14,12 +14,12 @@ using FluentValidation;
 namespace Turo.Application.Commands.Cars
 {
     public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, int>
-{
-    private readonly ICarService _carService;
+    {
+        private readonly ICarService _carService;
         private readonly ILogger<CreateCarCommandHandler> _logger;
         private readonly ITranslationService _translationService;
         private readonly IValidator<CreateCarCommand> _validator;
-        public CreateCarCommandHandler(IValidator<CreateCarCommand> validator , ICarService carService, ILogger<CreateCarCommandHandler> logger, ITranslationService translationService)
+        public CreateCarCommandHandler(IValidator<CreateCarCommand> validator, ICarService carService, ILogger<CreateCarCommandHandler> logger, ITranslationService translationService)
         {
             _carService = carService;
             _logger = logger;
@@ -46,7 +46,7 @@ namespace Turo.Application.Commands.Cars
                 }
 
                 // Map request to Car entity
-               
+
 
                 // Use the car service to create the car
                 var createdCar = await _carService.CreateAsync(request.CreateCarDTo);
