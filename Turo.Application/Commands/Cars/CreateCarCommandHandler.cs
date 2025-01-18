@@ -7,10 +7,13 @@ using Turo.Application.Services;
 using Turo.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Turo.Application.Services.CarService;
+using FluentValidation;
+
 
 namespace Turo.Application.Commands.Cars
 {
-    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, Car>
+    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, int>
 {
     private readonly ICarService _carService;
         private readonly ILogger<CreateCarCommandHandler> _logger;
@@ -23,32 +26,27 @@ namespace Turo.Application.Commands.Cars
             _translationService = translationService;
         }
 
-        public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 // Log the incoming request
-                _logger.LogInformation($"Creating a new car: {request.Make} {request.Model} ({request.Year})");
+                _logger.LogInformation($"Creating a new car: {request.CreateCarDTo.Make} {request.CreateCarDTo.Model} ({request.CreateCarDTo.Year})");
 
                 // Validate input data (this is a simple example, but could be expanded for more robust validation)
-                if (string.IsNullOrEmpty(request.Make) || string.IsNullOrEmpty(request.Model) || request.Year <= 0)
+                if (string.IsNullOrEmpty(request.CreateCarDTo.Make) || string.IsNullOrEmpty(request.CreateCarDTo.Model) || request.CreateCarDTo.Year <= 0)
                 {
                     throw new ArgumentException("Invalid car data");
                 }
 
                 // Map request to Car entity
-                var car = new Car
-                {
-                    Make = request.Make,
-                    Model = request.Model,
-                    Year = request.Year
-                };
+               
 
                 // Use the car service to create the car
-                var createdCar = await _carService.CreateCarAsync(car);
+                var createdCar = await _carService.CreateAsync(request.CreateCarDTo);
 
                 // Log successful creation
-                _logger.LogInformation($"Car created successfully: {createdCar.Make} {createdCar.Model} ({createdCar.Year})");
+                _logger.LogInformation($"Car created successfully: {request.CreateCarDTo.Make} {request.CreateCarDTo.Model} ({request.CreateCarDTo.Year})");
 
                 return createdCar;
             }

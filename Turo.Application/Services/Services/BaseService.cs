@@ -1,11 +1,12 @@
 ﻿
 
-namespace Turo.Infrastructure.Services
+namespace Turo.Application.Services
 {
     using AutoMapper;
     using Turo.Application.Interfaces;
     using Turo.Infrastructure.Repository.Base;
     using Turo.Infrastructure.UnitOfWork;
+
     public class BaseService<TEntity, TCreate, TUpdate, TViewModel>
   : IBaseService<TCreate, TUpdate, TViewModel>
   where TEntity : class
