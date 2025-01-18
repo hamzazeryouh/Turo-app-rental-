@@ -1,15 +1,17 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Turo.Application.Interfaces;
 using Turo.Application.Maping;
 using Turo.Application.Services;
+using Turo.Application.Services.CarService;
+using Turo.Application.Validators;
 using Turo.Domain.Entities;
 using Turo.Infrastructure.Persistence;
 using Turo.Infrastructure.Repository;
 using Turo.Infrastructure.Repository.Base;
 using Turo.Infrastructure.Repository.Cars;
-using Turo.Infrastructure.Services;
-using Turo.Infrastructure.Services.CarService;
 using Turo.Infrastructure.UnitOfWork;
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -28,6 +30,8 @@ builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateCarDtoValidator>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
