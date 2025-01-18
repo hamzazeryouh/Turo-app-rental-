@@ -18,18 +18,24 @@ namespace Turo.Application.Commands.Cars
     private readonly ICarService _carService;
         private readonly ILogger<CreateCarCommandHandler> _logger;
         private readonly ITranslationService _translationService;
-
-        public CreateCarCommandHandler(ICarService carService, ILogger<CreateCarCommandHandler> logger, ITranslationService translationService)
+        private readonly IValidator<CreateCarCommand> _validator;
+        public CreateCarCommandHandler(IValidator<CreateCarCommand> validator , ICarService carService, ILogger<CreateCarCommandHandler> logger, ITranslationService translationService)
         {
             _carService = carService;
             _logger = logger;
             _translationService = translationService;
+            _validator = validator;
         }
 
         public async Task<int> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidationException(validationResult.Errors);
+                }
                 // Log the incoming request
                 _logger.LogInformation($"Creating a new car: {request.CreateCarDTo.Make} {request.CreateCarDTo.Model} ({request.CreateCarDTo.Year})");
 
