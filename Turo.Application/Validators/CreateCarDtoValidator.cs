@@ -12,7 +12,7 @@ namespace Turo.Application.Validators
 {
 
 
-    public class CreateCarDtoValidator : AbstractValidator<Car>
+    public class CreateCarDtoValidator : AbstractValidator<CreateCarDTo>
     {
         private readonly ITranslationService _translationService;
 
