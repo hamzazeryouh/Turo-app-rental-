@@ -7,7 +7,7 @@
         "Updated": "Entity successfully updated.",
         "Deleted": "Entity successfully deleted.",
         "InvalidCarData": "Invalid car data provided.",
-        "RequiredField": "{PropertyName} is required.",
+        "RequiredField": "{0} is required.",
         "MakeRequired": "Make is required.",
         "MakeMaxLength": "Make cannot exceed 50 characters.",
         "ModelRequired": "Model is required.",
