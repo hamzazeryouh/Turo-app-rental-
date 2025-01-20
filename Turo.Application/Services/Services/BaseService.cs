@@ -56,7 +56,7 @@ namespace Turo.Application.Services
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
