@@ -11,10 +11,10 @@ namespace Turo.Application.Interfaces
         where TUpdate : IBaseUpdateDTO
         where TViewModel : IBaseViewModel
     {
-        Task<TViewModel> GetByIdAsync(int id);
+        Task<TViewModel> GetByIdAsync(string id);
         Task<IEnumerable<TViewModel>> GetAllAsync();
         Task<int> CreateAsync(TCreate dto);
         Task<bool> UpdateAsync(TUpdate dto);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(string id);
     }
 }
