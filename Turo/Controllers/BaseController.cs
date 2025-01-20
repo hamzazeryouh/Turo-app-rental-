@@ -14,8 +14,8 @@
     where TEntity : class
     where TGetAllQuery : IRequest<IEnumerable<TEntity>>
     where TGetByIdQuery : IRequest<TEntity>
-    where TCreateCommand : IRequest<int>
-    where TUpdateCommand : IRequest<TEntity>
+    where TCreateCommand : IRequest<bool>
+    where TUpdateCommand : IRequest<bool>
     where TDeleteCommand : IRequest<bool>
     {
         private readonly ITranslationService _translationService;
@@ -81,7 +81,7 @@
                 if (result == null)
                     return NotFound(new Response<object>(_translationService.GetTranslation("NotFound"), 404));
 
-                return Ok(new Response<TEntity>(result, 200, _translationService.GetTranslation("Updated")));
+                return Ok(new Response<bool>(result, 200, _translationService.GetTranslation("Updated")));
             }
 
             return BadRequest();

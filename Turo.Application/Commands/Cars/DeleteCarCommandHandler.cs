@@ -32,7 +32,7 @@ namespace Turo.Application.Commands.Cars
                 _logger.LogInformation($"Deleting car with ID: {request.Id}");
 
                 // Validate input data
-                if (request.Id <= 0)
+                if (string.IsNullOrWhiteSpace(request.Id))
                 {
                     throw new ArgumentException("Invalid car ID");
                 }
