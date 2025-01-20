@@ -25,7 +25,7 @@ namespace Turo.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<TViewModel> GetByIdAsync(int id)
+        public async Task<TViewModel> GetByIdAsync(string id)
         {
             var entity = await _repository.GetByIdAsync(id);
             return _mapper.Map<TViewModel>(entity);
@@ -47,7 +47,7 @@ namespace Turo.Application.Services
 
         public async Task<bool> UpdateAsync(TUpdate dto)
         {
-            var entity = await _repository.GetByIdAsync((int)dto.GetType().GetProperty("Id").GetValue(dto));
+            var entity = await _repository.GetByIdAsync((string)dto.GetType().GetProperty("Id").GetValue(dto));
             if (entity == null) return false;
 
             _mapper.Map(dto, entity);
