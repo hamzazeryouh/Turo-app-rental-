@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Turo.Application.Helpers;
     using Turo.Application.Services;
-    using Turo.Application.Commands;
 
     [ApiController]
     [Route("api/[controller]")]

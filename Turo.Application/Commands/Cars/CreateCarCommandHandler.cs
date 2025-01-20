@@ -13,7 +13,7 @@ using FluentValidation;
 
 namespace Turo.Application.Commands.Cars
 {
-    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, int>
+    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, bool>
     {
         private readonly ICarService _carService;
         private readonly ILogger<CreateCarCommandHandler> _logger;
@@ -27,7 +27,7 @@ namespace Turo.Application.Commands.Cars
             _validator = validator;
         }
 
-        public async Task<int> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             try
             {

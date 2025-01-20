@@ -37,12 +37,12 @@ namespace Turo.Application.Services
             return _mapper.Map<IEnumerable<TViewModel>>(entities);
         }
 
-        public async Task<int> CreateAsync(TCreate dto)
+        public async Task<bool> CreateAsync(TCreate dto)
         {
             var entity = _mapper.Map<TEntity>(dto);
             await _repository.AddAsync(entity);
             await _unitOfWork.SaveChangesAsync();
-            return (int)entity.GetType().GetProperty("Id").GetValue(entity);
+            return  true;
         }
 
         public async Task<bool> UpdateAsync(TUpdate dto)

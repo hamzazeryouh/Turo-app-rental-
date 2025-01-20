@@ -8,7 +8,7 @@ using Turo.Application.Dtos.Cars;
 
 namespace Turo.Application.Commands.Cars
 {
-    public class CreateCarCommand : IRequest<int>
+    public class CreateCarCommand : IRequest<bool>
     {
         public CreateCarDTo? CreateCarDTo { get; set; }
     }

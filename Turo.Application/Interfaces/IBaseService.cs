@@ -13,7 +13,7 @@ namespace Turo.Application.Interfaces
     {
         Task<TViewModel> GetByIdAsync(string id);
         Task<IEnumerable<TViewModel>> GetAllAsync();
-        Task<int> CreateAsync(TCreate dto);
+        Task<bool> CreateAsync(TCreate dto);
         Task<bool> UpdateAsync(TUpdate dto);
         Task<bool> DeleteAsync(string id);
     }
