@@ -21,7 +21,7 @@ var builder = WebApplication.CreateSlimBuilder(args);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IBaseService<,,>), typeof(BaseService<,,,>));
+builder.Services.AddScoped(typeof(IBaseService<,,,>), typeof(BaseService<,,,>));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddScoped<ICarService, CarService>();

@@ -9,7 +9,7 @@ using Turo.Domain.Entities;
 
 namespace Turo.Application.Services.CarService
 {
-    public interface  ICarService : IBaseService<CreateCarDTo,UpdateCarDTo,CarDto>
+    public interface  ICarService : IBaseService<Car,CreateCarDTo,UpdateCarDTo,CarDto>
     {
     }
 }

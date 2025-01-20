@@ -8,7 +8,7 @@ namespace Turo.Application.Services
     using Turo.Infrastructure.UnitOfWork;
 
     public class BaseService<TEntity, TCreate, TUpdate, TViewModel>
-  : IBaseService<TCreate, TUpdate, TViewModel>
+  : IBaseService<TEntity,TCreate, TUpdate, TViewModel>
   where TEntity : class
   where TCreate : IBaseCreateDTO
   where TUpdate : IBaseUpdateDTO
