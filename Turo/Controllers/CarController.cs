@@ -5,7 +5,6 @@ using Turo.Application.Dtos.Cars;
 using Turo.Application.Queries.Car;
 using Turo.Application.Queries.Cars;
 using Turo.Application.Services;
-using Turo.Domain.Entities;
 
 namespace Turo.Controllers.cars
 {
