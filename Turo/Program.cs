@@ -1,12 +1,11 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Turo.Application.Interfaces;
 using Turo.Application.Maping;
-using Turo.Application.Queries.Cars;
+using Turo.Application.Queries.Car.Turo.Application.Handlers.Cars;
 using Turo.Application.Services;
 using Turo.Application.Services.CarService;
 using Turo.Application.Validators;
@@ -34,6 +33,7 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateCarDtoValidator>();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers()
@@ -56,6 +56,12 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+    typeof(GetAllCarsQueryHandler).Assembly
+));
+
+
 
 builder.Services.AddSwaggerGen(options =>
 {
