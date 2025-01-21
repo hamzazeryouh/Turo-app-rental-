@@ -1,14 +1,12 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using Turo.Application.Interfaces;
 using Turo.Application.Maping;
-using Turo.Application.Queries.Car.Turo.Application.Handlers.Cars;
+using Turo.Application.Queries.Cars;
 using Turo.Application.Services;
 using Turo.Application.Services.CarService;
 using Turo.Application.Validators;
@@ -42,6 +40,7 @@ builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
     );
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors(options =>
@@ -55,7 +54,8 @@ builder.Services.AddCors(options =>
             ;
         });
 });
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -76,30 +76,30 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
     // Add Bearer Token Authentication (If Needed)
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' followed by a valid token."
-    });
+    //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    //{
+    //    Name = "Authorization",
+    //    Type = SecuritySchemeType.Http,
+    //    Scheme = "Bearer",
+    //    BearerFormat = "JWT",
+    //    In = ParameterLocation.Header,
+    //    Description = "Enter 'Bearer' followed by a valid token."
+    //});
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
+    //options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    //{
+    //    {
+    //        new OpenApiSecurityScheme
+    //        {
+    //            Reference = new OpenApiReference
+    //            {
+    //                Type = ReferenceType.SecurityScheme,
+    //                Id = "Bearer"
+    //            }
+    //        },
+    //        new string[] {}
+    //    }
+    //});
 }); 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -111,7 +111,7 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty; // Set Swagger UI as the homepage
     });
 }
-
+app.MapControllers();
 app.UseAuthorization();
 app.Run();
 
