@@ -17,26 +17,18 @@ namespace Turo.Application.Queries.Car
         private readonly ICarService _carService;
         private readonly ILogger<GetByIdCarQueryHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly IValidator<GetByIdCarQuery> _validator;
 
-        public GetByIdCarQueryHandler(ICarService carService, ILogger<GetByIdCarQueryHandler> logger, IMapper mapper, IValidator<GetByIdCarQuery> validator)
+        public GetByIdCarQueryHandler(ICarService carService, ILogger<GetByIdCarQueryHandler> logger, IMapper mapper)
         {
             _carService = carService;
             _logger = logger;
             _mapper = mapper;
-            _validator = validator;
         }
 
         public async Task<CarDto> Handle(GetByIdCarQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                // Validate the request
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
-                if (!validationResult.IsValid)
-                {
-                    throw new ValidationException(validationResult.Errors);
-                }
 
                 _logger.LogInformation($"Fetching car details for ID: {request.Id}");
 

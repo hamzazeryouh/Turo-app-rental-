@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Turo.Application.Services.CarService;
 using FluentValidation;
+using Turo.Application.Validators;
 
 
 namespace Turo.Application.Commands.Cars
