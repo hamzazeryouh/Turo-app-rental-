@@ -14,7 +14,7 @@ namespace Turo.Domain.Entities
         public int? Year { get; set; }  // Year of manufacture
         public string? LicensePlate { get; set; }  // Car's license plate number
         public string? Color { get; set; }  // Color of the car
-        public decimal PricePerDay { get; set; }  // Price per day for renting the car
+        public double PricePerDay { get; set; }  // Price per day for renting the car
         public bool IsAvailable { get; set; }  // Availability status of the car
         public DateTime CreatedAt { get; set; }  // When the car was added to the system
         public DateTime LastServiceDate { get; set; }  // Last maintenance/service date
@@ -46,7 +46,7 @@ namespace Turo.Domain.Entities
         public string? SecurityFeatures { get; set; }  // E.g., Alarm, GPS Tracking, Immobilizer
 
         // Pricing & Offers
-        public decimal Discount { get; set; }  // Discount rate (e.g., 10% off)
+        public double Discount { get; set; }  // Discount rate (e.g., 10% off)
         public string? SpecialPricing { get; set; }  // Special pricing info (e.g., Weekend Offer)
         public bool IsDiscountApplicable { get; set; }  // Is a discount applicable?
 

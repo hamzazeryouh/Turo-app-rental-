@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Turo.Domain.Interfaces;
 
 namespace Turo.Domain.Entities
 {
-    public class AgencyLocation
+    public class AgencyLocation : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the location
-        public int AgencyId { get; set; }  // The agency that owns this location
+
+        public string AgencyId { get; set; }  // The agency that owns this location
         public string? Address { get; set; }  // Address of the location
         public double Latitude { get; set; }  // Latitude for geolocation
         public double Longitude { get; set; }  // Longitude for geolocation

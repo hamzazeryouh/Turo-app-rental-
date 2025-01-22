@@ -8,7 +8,7 @@ namespace Turo.Domain.Entities
 {
     public class DiscountOffer : BaseEntity<string>
     {
-        public int AgencyId { get; set; }  // The agency providing the offer
+        public string AgencyId { get; set; }  // The agency providing the offer
         public decimal DiscountPercentage { get; set; }  // Discount percentage (e.g., 15%)
         public DateTime StartDate { get; set; }  // When the offer starts
         public DateTime EndDate { get; set; }  // When the offer ends

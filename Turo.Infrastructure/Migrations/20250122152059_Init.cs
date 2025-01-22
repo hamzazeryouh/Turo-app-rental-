@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Turo.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace Turo.Infrastructure.Migrations
                     IsAvailable = table.Column<bool>(type: "bit", nullable: true),
                     TotalCars = table.Column<int>(type: "int", nullable: true),
                     AvailableCars = table.Column<int>(type: "int", nullable: true),
-                    DailyRentalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    DailyRentalPrice = table.Column<double>(type: "float", nullable: true),
                     PricingStrategy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CancellationPolicy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DamagePolicy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -70,30 +70,6 @@ namespace Turo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AgencyLocations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OperatingHours = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgencyId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AgencyLocations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AgencyLocations_User_AgencyId1",
-                        column: x => x.AgencyId1,
-                        principalTable: "User",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Car",
                 columns: table => new
                 {
@@ -104,7 +80,7 @@ namespace Turo.Infrastructure.Migrations
                     Year = table.Column<int>(type: "int", nullable: true),
                     LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PricePerDay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PricePerDay = table.Column<double>(type: "float", nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastServiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -130,7 +106,7 @@ namespace Turo.Infrastructure.Migrations
                     InsurancePolicyNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InsuranceExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SecurityFeatures = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false),
                     SpecialPricing = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDiscountApplicable = table.Column<bool>(type: "bit", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
@@ -165,12 +141,11 @@ namespace Turo.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
+                    AgencyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OfferDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgencyId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -183,10 +158,41 @@ namespace Turo.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_DiscountOffer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DiscountOffer_User_AgencyId1",
-                        column: x => x.AgencyId1,
+                        name: "FK_DiscountOffer_User_AgencyId",
+                        column: x => x.AgencyId,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AgencyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OperatingHours = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RowVersion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_User_AgencyId",
+                        column: x => x.AgencyId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,13 +200,12 @@ namespace Turo.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
+                    AgencyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgencyId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -213,10 +218,11 @@ namespace Turo.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Staff", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Staff_User_AgencyId1",
-                        column: x => x.AgencyId1,
+                        name: "FK_Staff_User_AgencyId",
+                        column: x => x.AgencyId,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,10 +230,8 @@ namespace Turo.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    CarId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RenterId = table.Column<int>(type: "int", nullable: false),
-                    RenterId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CarId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RenterId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
@@ -249,15 +253,17 @@ namespace Turo.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Booking", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Booking_Car_CarId1",
-                        column: x => x.CarId1,
+                        name: "FK_Booking_Car_CarId",
+                        column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_IndividualUser_RenterId1",
-                        column: x => x.RenterId1,
+                        name: "FK_Booking_IndividualUser_RenterId",
+                        column: x => x.RenterId,
                         principalTable: "IndividualUser",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Booking_User_UserId",
                         column: x => x.UserId,
@@ -269,46 +275,58 @@ namespace Turo.Infrastructure.Migrations
                 name: "CarPhoto",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CarId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CarId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RowVersion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarPhoto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CarPhoto_Car_CarId1",
-                        column: x => x.CarId1,
+                        name: "FK_CarPhoto_Car_CarId",
+                        column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "MaintenanceRecord",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CarId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ServicePerformed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ServiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ServiceProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CarId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RowVersion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MaintenanceRecord", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MaintenanceRecord_Car_CarId1",
-                        column: x => x.CarId1,
+                        name: "FK_MaintenanceRecord_Car_CarId",
+                        column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,15 +334,13 @@ namespace Turo.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AgencyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CarId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<double>(type: "float", nullable: false),
-                    AgencyId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CarId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IndividualUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -337,20 +353,28 @@ namespace Turo.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Review", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Review_Car_CarId1",
-                        column: x => x.CarId1,
+                        name: "FK_Review_Car_CarId",
+                        column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Review_IndividualUser_IndividualUserId",
                         column: x => x.IndividualUserId,
                         principalTable: "IndividualUser",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Review_User_AgencyId1",
-                        column: x => x.AgencyId1,
+                        name: "FK_Review_User_AgencyId",
+                        column: x => x.AgencyId,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Review_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Review_User_UserId1",
                         column: x => x.UserId1,
@@ -359,19 +383,14 @@ namespace Turo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AgencyLocations_AgencyId1",
-                table: "AgencyLocations",
-                column: "AgencyId1");
+                name: "IX_Booking_CarId",
+                table: "Booking",
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_CarId1",
+                name: "IX_Booking_RenterId",
                 table: "Booking",
-                column: "CarId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Booking_RenterId1",
-                table: "Booking",
-                column: "RenterId1");
+                column: "RenterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_UserId",
@@ -384,29 +403,34 @@ namespace Turo.Infrastructure.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarPhoto_CarId1",
+                name: "IX_CarPhoto_CarId",
                 table: "CarPhoto",
-                column: "CarId1");
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DiscountOffer_AgencyId1",
+                name: "IX_DiscountOffer_AgencyId",
                 table: "DiscountOffer",
-                column: "AgencyId1");
+                column: "AgencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaintenanceRecord_CarId1",
+                name: "IX_Locations_AgencyId",
+                table: "Locations",
+                column: "AgencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MaintenanceRecord_CarId",
                 table: "MaintenanceRecord",
-                column: "CarId1");
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_AgencyId1",
+                name: "IX_Review_AgencyId",
                 table: "Review",
-                column: "AgencyId1");
+                column: "AgencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_CarId1",
+                name: "IX_Review_CarId",
                 table: "Review",
-                column: "CarId1");
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_IndividualUserId",
@@ -414,22 +438,24 @@ namespace Turo.Infrastructure.Migrations
                 column: "IndividualUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Review_UserId",
+                table: "Review",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Review_UserId1",
                 table: "Review",
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Staff_AgencyId1",
+                name: "IX_Staff_AgencyId",
                 table: "Staff",
-                column: "AgencyId1");
+                column: "AgencyId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AgencyLocations");
-
             migrationBuilder.DropTable(
                 name: "Booking");
 
@@ -438,6 +464,9 @@ namespace Turo.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "DiscountOffer");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "MaintenanceRecord");

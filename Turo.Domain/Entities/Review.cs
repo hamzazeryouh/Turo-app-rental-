@@ -8,9 +8,9 @@ namespace Turo.Domain.Entities
 {
     public class Review : BaseEntity<string>
     {
-        public int AgencyId { get; set; }  // The agency being reviewed
-        public int CarId { get; set; }  // Optional: The car being reviewed (if applicable)
-        public int UserId { get; set; }  // The user leaving the review
+        public string AgencyId { get; set; }  // The agency being reviewed
+        public string CarId { get; set; }  // Optional: The car being reviewed (if applicable)
+        public string UserId { get; set; }  // The user leaving the review
         public string? Comments { get; set; }  // The text of the review
         public double Rating { get; set; }  // Rating out of 5 (or other scale)
 

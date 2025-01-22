@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Turo.Domain.Entities
 {
-    public class Chat
+    public class Chat : BaseEntity<string>
     {
-        public int Id { get; set; }  // Unique identifier for the chat
-        public int CarId { get; set; }  // The car the chat is related to (car being rented)
-        public int OwnerId { get; set; }  // The owner of the car (can be an agency or an individual)
-        public int UserId { get; set; }  // The user (renter) involved in the conversation
+        public string CarId { get; set; }  // The car the chat is related to (car being rented)
+        public string OwnerId { get; set; }  // The owner of the car (can be an agency or an individual)
+        public string UserId { get; set; }  // The user (renter) involved in the conversation
 
         // Navigation properties
         public Car? Car { get; set; }  // The car being rented

@@ -10,7 +10,7 @@ namespace Turo.Domain.Entities
     {
 
 
-        public int AgencyId { get; set; }  // The agency where the staff works
+        public string AgencyId { get; set; }  // The agency where the staff works
         public string? FirstName { get; set; }  // First name of the staff member
         public string? LastName { get; set; }  // Last name of the staff member
         public string? Position { get; set; }  // Position (e.g., "Manager", "Support Staff")

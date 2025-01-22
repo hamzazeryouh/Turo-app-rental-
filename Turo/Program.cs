@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Globalization;
 using System.Reflection;
 using Turo.Application.Interfaces;
 using Turo.Application.Maping;
@@ -9,16 +10,17 @@ using Turo.Application.Queries.Car.Turo.Application.Handlers.Cars;
 using Turo.Application.Services;
 using Turo.Application.Services.CarService;
 using Turo.Application.Validators;
+using Turo.Helpers;
+using Turo.Infrastructure.Helpers;
 using Turo.Infrastructure.Persistence;
 using Turo.Infrastructure.Repository;
 using Turo.Infrastructure.Repository.Base;
 using Turo.Infrastructure.Repository.Cars;
 using Turo.Infrastructure.UnitOfWork;
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
+//System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
 var builder = WebApplication.CreateSlimBuilder(args);
-
-
-
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -106,7 +108,7 @@ builder.Services.AddSwaggerGen(options =>
     //        new string[] {}
     //    }
     //});
-}); 
+});
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

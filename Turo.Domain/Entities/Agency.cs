@@ -22,7 +22,7 @@ namespace Turo.Domain.Entities
         public new ICollection<Car>? CarsOwned { get; set; }  // List of cars owned by the agency
 
         // Pricing & Discounts
-        public decimal DailyRentalPrice { get; set; }  // Average daily rental price
+        public double DailyRentalPrice { get; set; }  // Average daily rental price
         public string? PricingStrategy { get; set; }  // e.g., "Dynamic pricing" or "Fixed pricing"
         public ICollection<DiscountOffer>? DiscountOffers { get; set; }  // List of discounts/offers provided by the agency
 

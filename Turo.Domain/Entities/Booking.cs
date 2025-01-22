@@ -10,11 +10,11 @@ namespace Turo.Domain.Entities
     {
 
         // Reference to the car being booked
-        public int CarId { get; set; }
+        public string CarId { get; set; }
         public Car? Car { get; set; }  // Navigation property to the car
 
         // Reference to the user who made the booking (renter)
-        public int RenterId { get; set; }
+        public string RenterId { get; set; }
         public IndividualUser? Renter { get; set; }  // Navigation property to the renter
 
         // Booking details

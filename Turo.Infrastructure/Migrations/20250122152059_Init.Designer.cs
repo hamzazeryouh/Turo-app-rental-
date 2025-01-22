@@ -12,8 +12,8 @@ using Turo.Infrastructure.Persistence;
 namespace Turo.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250117135430_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250122152059_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,23 +27,27 @@ namespace Turo.Infrastructure.Migrations
 
             modelBuilder.Entity("Turo.Domain.Entities.AgencyLocation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AgencyId1")
+                    b.Property<string>("AgencyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ContactNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -51,14 +55,26 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
 
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("OperatingHours")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RowVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencyId1");
+                    b.HasIndex("AgencyId");
 
-                    b.ToTable("AgencyLocations");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Turo.Domain.Entities.Booking", b =>
@@ -66,10 +82,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarId1")
+                    b.Property<string>("CarId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -102,10 +116,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RenterId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RenterId1")
+                    b.Property<string>("RenterId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RowVersion")
@@ -128,9 +140,9 @@ namespace Turo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
-                    b.HasIndex("RenterId1");
+                    b.HasIndex("RenterId");
 
                     b.HasIndex("UserId");
 
@@ -166,8 +178,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<string>("EngineCapacity")
                         .HasColumnType("nvarchar(max)");
@@ -265,8 +277,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("PricePerDay")
+                        .HasColumnType("float");
 
                     b.Property<string>("RegistrationDocument")
                         .HasColumnType("nvarchar(max)");
@@ -304,22 +316,38 @@ namespace Turo.Infrastructure.Migrations
 
             modelBuilder.Entity("Turo.Domain.Entities.CarPhoto", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarId1")
+                    b.Property<string>("CarId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RowVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
@@ -327,7 +355,7 @@ namespace Turo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
                     b.ToTable("CarPhoto");
                 });
@@ -337,10 +365,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AgencyId1")
+                    b.Property<string>("AgencyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedBy")
@@ -378,7 +404,7 @@ namespace Turo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencyId1");
+                    b.HasIndex("AgencyId");
 
                     b.ToTable("DiscountOffer");
                 });
@@ -419,22 +445,35 @@ namespace Turo.Infrastructure.Migrations
 
             modelBuilder.Entity("Turo.Domain.Entities.MaintenanceRecord", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarId1")
+                    b.Property<string>("CarId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RowVersion")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ServiceDate")
@@ -446,9 +485,12 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("ServiceProvider")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
                     b.ToTable("MaintenanceRecord");
                 });
@@ -458,16 +500,12 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AgencyId1")
+                    b.Property<string>("AgencyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarId1")
+                    b.Property<string>("CarId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comments")
@@ -500,19 +538,22 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencyId1");
+                    b.HasIndex("AgencyId");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
                     b.HasIndex("IndividualUserId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("UserId1");
 
@@ -524,10 +565,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AgencyId1")
+                    b.Property<string>("AgencyId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedBy")
@@ -568,7 +607,7 @@ namespace Turo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencyId1");
+                    b.HasIndex("AgencyId");
 
                     b.ToTable("Staff");
                 });
@@ -653,8 +692,8 @@ namespace Turo.Infrastructure.Migrations
                     b.Property<string>("CancellationPolicy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DailyRentalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("DailyRentalPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("DamagePolicy")
                         .HasColumnType("nvarchar(max)");
@@ -684,7 +723,9 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Agency", "Agency")
                         .WithMany("Locations")
-                        .HasForeignKey("AgencyId1");
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agency");
                 });
@@ -693,11 +734,15 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Car", "Car")
                         .WithMany("Bookings")
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Turo.Domain.Entities.IndividualUser", "Renter")
                         .WithMany("Bookings")
-                        .HasForeignKey("RenterId1");
+                        .HasForeignKey("RenterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Turo.Domain.Entities.User", null)
                         .WithMany("Bookings")
@@ -721,7 +766,9 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Car", "Car")
                         .WithMany("Photos")
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });
@@ -730,7 +777,9 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Agency", "Agency")
                         .WithMany("DiscountOffers")
-                        .HasForeignKey("AgencyId1");
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agency");
                 });
@@ -739,7 +788,9 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Car", "Car")
                         .WithMany("MaintenanceRecords")
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });
@@ -748,17 +799,27 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Agency", "Agency")
                         .WithMany()
-                        .HasForeignKey("AgencyId1");
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Turo.Domain.Entities.Car", "Car")
                         .WithMany("Reviews")
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Turo.Domain.Entities.IndividualUser", null)
                         .WithMany("Reviews")
                         .HasForeignKey("IndividualUserId");
 
                     b.HasOne("Turo.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Turo.Domain.Entities.User", null)
                         .WithMany("Reviews")
                         .HasForeignKey("UserId1");
 
@@ -773,7 +834,9 @@ namespace Turo.Infrastructure.Migrations
                 {
                     b.HasOne("Turo.Domain.Entities.Agency", "Agency")
                         .WithMany("StaffMembers")
-                        .HasForeignKey("AgencyId1");
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agency");
                 });
