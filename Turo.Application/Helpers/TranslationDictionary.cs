@@ -9,7 +9,13 @@
 
         static TranslationDictionary()
         {
-            var json = File.ReadAllText("translations.json");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Helpers/Translations.json");
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"Translation file not found at {filePath}. Ensure the file exists.");
+            }
+            var json = File.ReadAllText(filePath);
             _translations = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json);
         }
 

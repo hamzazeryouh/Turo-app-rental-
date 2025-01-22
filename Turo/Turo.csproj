@@ -11,6 +11,14 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>1591</NoWarn>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Content Remove="Translations.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="Helpers\Translations.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 
 
 	<ItemGroup>
