@@ -10,6 +10,6 @@ namespace Turo.Application.Commands.Cars
 {
     public class CreateCarCommand : IRequest<bool>
     {
-        public CreateCarDTo? CreateCarDTo { get; set; }
+        public CreateCarDTo? CreateEntity { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace Turo.Application.Commands.Cars
 {
     public class UpdateCarCommand : IRequest<bool>
     {
-        public UpdateCarDTo? UpdateCar { get; set; }
+        public UpdateCarDTo? UpdateEntity { get; set; }
     }
 }

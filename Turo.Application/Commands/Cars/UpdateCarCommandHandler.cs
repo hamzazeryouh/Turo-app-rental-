@@ -9,14 +9,14 @@ using MediatR;
 
 namespace Turo.Application.Commands.Cars
 {
-    public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, bool>
+    public class UpdateEntityCommandHandler : IRequestHandler<UpdateCarCommand, bool>
     {
         private readonly ICarService _carService;
-        private readonly ILogger<UpdateCarCommandHandler> _logger;
+        private readonly ILogger<UpdateEntityCommandHandler> _logger;
         private readonly ITranslationService _translationService;
         private readonly IValidator<UpdateCarCommand> _validator;
 
-        public UpdateCarCommandHandler(IValidator<UpdateCarCommand> validator, ICarService carService, ILogger<UpdateCarCommandHandler> logger, ITranslationService translationService)
+        public UpdateEntityCommandHandler(IValidator<UpdateCarCommand> validator, ICarService carService, ILogger<UpdateEntityCommandHandler> logger, ITranslationService translationService)
         {
             _carService = carService;
             _logger = logger;
@@ -35,19 +35,19 @@ namespace Turo.Application.Commands.Cars
                     throw new ValidationException(validationResult.Errors);
                 }
 
-                if (string.IsNullOrEmpty(request.UpdateCar.Make) || string.IsNullOrEmpty(request.UpdateCar.Model) || request.UpdateCar.Year <= 0)
+                if (string.IsNullOrEmpty(request.UpdateEntity.Make) || string.IsNullOrEmpty(request.UpdateEntity.Model) || request.UpdateEntity.Year <= 0)
                 {
                     throw new ArgumentException("Invalid car data");
                 }
 
                 // Log the incoming request after validation
-                _logger.LogInformation($"Updating car: {request.UpdateCar.Make} {request.UpdateCar.Model} ({request.UpdateCar.Year})");
+                _logger.LogInformation($"Updating car: {request.UpdateEntity.Make} {request.UpdateEntity.Model} ({request.UpdateEntity.Year})");
 
                 // Use the car service to update the car
-                var updatedCar = await _carService.UpdateAsync(request.UpdateCar);
+                var updatedCar = await _carService.UpdateAsync(request.UpdateEntity);
 
                 // Log successful update
-                _logger.LogInformation($"Car updated successfully: {request.UpdateCar.Make} {request.UpdateCar.Model} ({request.UpdateCar.Year})");
+                _logger.LogInformation($"Car updated successfully: {request.UpdateEntity.Make} {request.UpdateEntity.Model} ({request.UpdateEntity.Year})");
 
                 return updatedCar;
             }

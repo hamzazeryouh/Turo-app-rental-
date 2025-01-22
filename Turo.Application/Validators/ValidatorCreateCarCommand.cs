@@ -17,40 +17,40 @@ namespace Turo.Application.Validators
         {
             _translationService = translationService;
 
-            RuleFor(car => car.CreateCarDTo!.Make)
+            RuleFor(car => car.CreateEntity!.Make)
                 .NotEmpty().WithMessage(_ => _translationService.GetTranslation("MakeRequired"))
                 .MaximumLength(50).WithMessage(_ => _translationService.GetTranslation("MakeMaxLength"));
 
-            RuleFor(car => car.CreateCarDTo!.Model)
+            RuleFor(car => car.CreateEntity!.Model)
                 .NotEmpty().WithMessage(_ => _translationService.GetTranslation("ModelRequired"))
                 .MaximumLength(50).WithMessage(_ => _translationService.GetTranslation("ModelMaxLength"));
 
-            RuleFor(car => car.CreateCarDTo!.VIN)
+            RuleFor(car => car.CreateEntity!.VIN)
                 .NotEmpty().WithMessage(_ => _translationService.GetTranslation("VINRequired"))
                 .Matches(@"^[A-HJ-NPR-Z0-9]{17}$").WithMessage(_ => _translationService.GetTranslation("VINFormat"));
 
-            RuleFor(car => car.CreateCarDTo!.Year)
+            RuleFor(car => car.CreateEntity!.Year)
                 .NotNull().WithMessage(_ => _translationService.GetTranslation("YearRequired"))
                 .InclusiveBetween(1886, DateTime.UtcNow.Year)
                 .WithMessage(_ => _translationService.GetTranslation("YearRange"));
 
-            RuleFor(car => car.CreateCarDTo!.LicensePlate)
+            RuleFor(car => car.CreateEntity!.LicensePlate)
                 .NotEmpty().WithMessage(_ => _translationService.GetTranslation("LicensePlateRequired"))
                 .MaximumLength(10).WithMessage(_ => _translationService.GetTranslation("LicensePlateMaxLength"));
 
-            RuleFor(car => car.CreateCarDTo!.PricePerDay)
+            RuleFor(car => car.CreateEntity!.PricePerDay)
                 .GreaterThan(0).WithMessage(_ => _translationService.GetTranslation("PricePerDayMin"));
 
-            RuleFor(car => car.CreateCarDTo!.Mileage)
+            RuleFor(car => car.CreateEntity!.Mileage)
                 .GreaterThanOrEqualTo(0).WithMessage(_ => _translationService.GetTranslation("MileageMin"));
 
-            RuleFor(car => car.CreateCarDTo!.Seats)
+            RuleFor(car => car.CreateEntity!.Seats)
                 .InclusiveBetween(1, 10).WithMessage(_ => _translationService.GetTranslation("SeatsRange"));
 
-            RuleFor(car => car.CreateCarDTo!.Latitude)
+            RuleFor(car => car.CreateEntity!.Latitude)
                 .InclusiveBetween(-90, 90).WithMessage(_ => _translationService.GetTranslation("LatitudeRange"));
 
-            RuleFor(car => car.CreateCarDTo!.Longitude)
+            RuleFor(car => car.CreateEntity!.Longitude)
                 .InclusiveBetween(-180, 180).WithMessage(_ => _translationService.GetTranslation("LongitudeRange"));
         }
     }

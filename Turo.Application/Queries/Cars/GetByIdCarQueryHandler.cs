@@ -37,7 +37,7 @@ namespace Turo.Application.Queries.Car
                 if (car == null)
                 {
                     _logger.LogWarning($"Car with ID {request.Id} not found.");
-                    throw new KeyNotFoundException($"Car with ID {request.Id} not found.");
+                    return null;
                 }
 
                 // Map to CarDto

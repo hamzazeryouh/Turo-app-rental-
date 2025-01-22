@@ -38,10 +38,10 @@ namespace Turo.Application.Commands.Cars
                     throw new ValidationException(validationResult.Errors);
                 }
                 // Log the incoming request
-                _logger.LogInformation($"Creating a new car: {request.CreateCarDTo.Make} {request.CreateCarDTo.Model} ({request.CreateCarDTo.Year})");
+                _logger.LogInformation($"Creating a new car: {request.CreateEntity.Make} {request.CreateEntity.Model} ({request.CreateEntity.Year})");
 
                 // Validate input data (this is a simple example, but could be expanded for more robust validation)
-                if (string.IsNullOrEmpty(request.CreateCarDTo.Make) || string.IsNullOrEmpty(request.CreateCarDTo.Model) || request.CreateCarDTo.Year <= 0)
+                if (string.IsNullOrEmpty(request.CreateEntity.Make) || string.IsNullOrEmpty(request.CreateEntity.Model) || request.CreateEntity.Year <= 0)
                 {
                     throw new ArgumentException("Invalid car data");
                 }
@@ -50,10 +50,10 @@ namespace Turo.Application.Commands.Cars
 
 
                 // Use the car service to create the car
-                var createdCar = await _carService.CreateAsync(request.CreateCarDTo);
+                var createdCar = await _carService.CreateAsync(request.CreateEntity);
 
                 // Log successful creation
-                _logger.LogInformation($"Car created successfully: {request.CreateCarDTo.Make} {request.CreateCarDTo.Model} ({request.CreateCarDTo.Year})");
+                _logger.LogInformation($"Car created successfully: {request.CreateEntity.Make} {request.CreateEntity.Model} ({request.CreateEntity.Year})");
 
                 return createdCar;
             }

@@ -9,9 +9,11 @@
 
     [ApiController]
     [Route("api/[controller]")]
-    public class BaseController<TEntity, TGetAllQuery, TGetByIdQuery, TCreateCommand, TUpdateCommand, TDeleteCommand>
+    public class BaseController<TEntity, TEntityUpdate, TEntityCreate, TGetAllQuery, TGetByIdQuery, TCreateCommand, TUpdateCommand, TDeleteCommand>
     : ControllerBase
     where TEntity : class
+    where TEntityUpdate : class
+    where TEntityCreate : class
     where TGetAllQuery : IRequest<IEnumerable<TEntity>>
     where TGetByIdQuery : IRequest<TEntity>
     where TCreateCommand : IRequest<bool>
@@ -37,7 +39,7 @@
 
         // GET api/[controller]/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             // Set the Id dynamically using reflection
             var query = Activator.CreateInstance<TGetByIdQuery>();
@@ -52,15 +54,15 @@
 
         // POST api/[controller]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TEntity entity)
+        public async Task<IActionResult> Create([FromBody] TEntityCreate entity)
         {
             var command = Activator.CreateInstance<TCreateCommand>();
             if (command is TCreateCommand createCommand)
             {
                 // Assuming TCreateCommand has a property for the entity to create
-                createCommand.GetType().GetProperty("Entity")?.SetValue(createCommand, entity);
+                createCommand.GetType().GetProperty("CreateEntity")?.SetValue(createCommand, entity);
                 var result = await _mediator.Send(createCommand);
-                return CreatedAtAction(nameof(GetById), new { id = result }, new Response<TEntity>(entity, 201, _translationService.GetTranslation("Created")));
+                return CreatedAtAction(nameof(GetById), new { id = result }, new Response<bool>(result, 201, _translationService.GetTranslation("Created")));
             }
 
             return BadRequest();
@@ -68,14 +70,14 @@
 
         // PUT api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TEntity entity)
+        public async Task<IActionResult> Update(string id, [FromBody] TEntityUpdate entity)
         {
             var command = Activator.CreateInstance<TUpdateCommand>();
             if (command is TUpdateCommand updateCommand)
             {
                 // Assuming TUpdateCommand has an Id and Entity property
                 updateCommand.GetType().GetProperty("Id")?.SetValue(updateCommand, id);
-                updateCommand.GetType().GetProperty("Entity")?.SetValue(updateCommand, entity);
+                updateCommand.GetType().GetProperty("UpdateEntity")?.SetValue(updateCommand, entity);
 
                 var result = await _mediator.Send(updateCommand);
                 if (result == null)
@@ -89,7 +91,7 @@
 
         // DELETE api/[controller]/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var command = Activator.CreateInstance<TDeleteCommand>();
             if (command is TDeleteCommand deleteCommand)
